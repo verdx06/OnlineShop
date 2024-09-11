@@ -3,13 +3,13 @@
 //  OnlineShop
 //
 //  Created by Виталий Багаутдинов on 10.09.2024.
-//
+///Users/verdx/Desktop/proekt/OnlineShop/OnlineShop/Views/CartViewForProducts.swift
 
 import SwiftUI
 
 struct FavoriteProducts: View {
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        Text("Hello, World!")
     }
 }
 

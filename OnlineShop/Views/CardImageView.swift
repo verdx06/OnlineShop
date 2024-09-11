@@ -8,11 +8,22 @@
 import SwiftUI
 
 struct CardImageView: View {
+    
+    let url: URL
+    let width: CGFloat
+    let height: CGFloat
+    
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+            ZStack {
+                AsyncImage(url: url) { image in
+                    image
+                        .resizable()
+                        .scaledToFill()
+                        .frame(width: width, height: height)
+                        .cornerRadius(20)
+                } placeholder: {
+                    ProgressView()
+                }
+            }
     }
-}
-
-#Preview {
-    CardImageView()
 }

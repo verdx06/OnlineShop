@@ -12,24 +12,50 @@ struct ContentView: View {
     
     @FirestoreQuery(collectionPath: "shop") var items: [Product]
     
+    // MARK: - BODY
     var body: some View {
         NavigationStack {
             ScrollView {
-                Text("ok")
+                LazyVGrid(columns: Array(repeating: GridItem(), count: 2), content: {
+                    ForEach(items) { item in
+                        ProductCard(product: item)
+                            .padding(.bottom, 40)
+                    }
+                })
             }
+            
+            // MARK: - Navigation Bar
             .navigationTitle("Products")
-            .navigationBarItems(trailing:
-                NavigationLink(destination: {
-                //
-            }, label: {
-                Image(systemName: "cart.fill")
-                    .foregroundColor(Color.black)
-            })
-            )
+            .navigationBarItems(leading: LeadingButton, trailing: TrailingButton)
         }
+    }
+}
+
+
+extension ContentView {
+    
+    private var TrailingButton: some View {
+        NavigationLink(destination: CardViewForProducts()) {
+                    Image(systemName: "cart.fill")
+                        .foregroundColor(Color.black)
+                        .font(.title2)
+                }
+
+    }
+    
+    private var LeadingButton: some View {
+        NavigationLink(destination: FavoriteProducts()) {
+                    Image(systemName: "heart.fill")
+                        .foregroundColor(Color.black)
+                        .font(.title2)
+                }
+
     }
 }
 
 #Preview {
     ContentView()
 }
+
+
+
