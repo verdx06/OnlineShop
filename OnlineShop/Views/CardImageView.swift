@@ -23,6 +23,8 @@ struct CardImageView: View {
                         .cornerRadius(20)
                 } placeholder: {
                     ProgressView()
+                        .font(.title)
+                        .frame(width: width, height: height)
                 }
             }
     }

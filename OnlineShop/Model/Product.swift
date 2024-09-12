@@ -24,7 +24,7 @@ extension Product {
         .init(
             name: "Супер игровая приставка",
             description: "mnogo",
-            image: "https://firebasestorage.googleapis.com/v0/b/onlineshop-883f2.appspot.com/o/products%2F1703824972_001a.webp?alt=media&token=cd228ab2-458c-4a8b-b610-50a08fda7b85",
+            image: "https://firebasestorage.googleapis.com/v0/b/onlineshop-883f2.appspot.com/o/products%2Fxiaomi-mi-display-1a-predstavenie.jpg?alt=media&token=9b3a578f-e45b-48a5-a314-b75ba1c518be",
             price: 123,
             favorite: false
         )

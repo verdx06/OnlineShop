@@ -10,6 +10,7 @@ import SwiftUI
 struct ProductCard: View {
     
     let product: Product
+    @EnvironmentObject var viewModel: ViewModel
     
     var body: some View {
         GeometryReader(content: {
@@ -24,8 +25,9 @@ struct ProductCard: View {
                             url: url,
                             width: size.width,
                             height: size.height)
+                        
                         Button {
-                            //
+                            viewModel.toggleFavorite(product: product)
                         } label: {
                             Image(systemName: "heart.fill")
                                 .font(.largeTitle)
@@ -38,31 +40,21 @@ struct ProductCard: View {
                                 }
                             
                         }.padding()
+                        
                     }
                     
-                    HStack() {
-                        Text("\(product.price) $")
-                            .font(.system(size: 25))
-                            .bold()
-                            
-                        if let attributedString = try? AttributedString(markdown: "~~\(product.price * 3) $~~") {
-                            Text(attributedString)
-                                .font(.title2)
-                                .foregroundColor(.gray)
-                        }
-                    }
+                    priceAndName
                     
                     
                 }
             }
             
         })
-        .frame(height: UIScreen.main.bounds.height * 0.7)
-        .background(.background.opacity(0.5))
-        .padding(10)
+        .frame(height: UIScreen.main.bounds.height * 0.3)
     }
 }
 
 #Preview {
     ProductCard(product: .dum)
+        .environmentObject(ViewModel())
 }
