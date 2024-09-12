@@ -19,9 +19,14 @@ struct ContentView: View {
             ScrollView {
                 LazyVGrid(columns: Array(repeating: GridItem(), count: 1)) {
                     ForEach(items) { item in
-                        ProductCard(product: item)
-                            .padding(.bottom, 70)
-                        Divider()
+                        NavigationLink  {
+                            DetailView(product: item)
+                        } label: {
+                            ProductCard(product: item)
+                                .padding(.bottom, 70)
+                                .foregroundColor(.black)
+                            Divider()
+                        }
                     }
                 }
             }.padding(.horizontal, 10)
