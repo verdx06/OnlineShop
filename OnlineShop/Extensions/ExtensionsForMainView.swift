@@ -12,7 +12,7 @@ import SwiftUI
 extension ContentView {
     
      var TrailingButton: some View {
-        NavigationLink(destination: CardViewForProducts()) {
+        NavigationLink(destination: CartView()) {
                     Image(systemName: "cart.fill")
                         .foregroundColor(Color.black)
                         .font(.title2)

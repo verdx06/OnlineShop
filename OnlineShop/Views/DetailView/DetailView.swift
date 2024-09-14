@@ -6,10 +6,14 @@
 //
 
 import SwiftUI
+import FirebaseFirestore
 
 struct DetailView: View {
     
     let product: Product
+    @FirestoreQuery(collectionPath: "shop") private var items: [Product]
+    @EnvironmentObject var viewModel: ViewModel
+    @State var isAlert: Bool = false
     
     var body: some View {
         
@@ -41,19 +45,8 @@ struct DetailView: View {
                     
                     Spacer()
                     
-                    Button {
-                        //
-                    } label: {
-                        Text("Добавить в корзину")
-                            .frame(maxWidth: .infinity)
-                            .frame(height: 55)
-                            .bold()
-                            .foregroundColor(.white)
-                            .background(Color.black)
-                            .clipShape(Capsule())
-                        
-                        
-                    }
+                    
+                    detailViewWithProduct
 
                     
                 }
@@ -65,8 +58,84 @@ struct DetailView: View {
                 .padding(.leading)
         }
     }
+    
+    func checkCount() -> Bool {
+        if product.id != nil {
+            for item in items {
+                if item.count ?? 0 >= 1 {
+                    return true
+                }
+            }
+            return false
+        }
+        return false
+    }
+
+    
 }
+
+extension DetailView {
+    
+    private var detailViewWithProduct: some View {
+        Group {
+            if checkCount(), let count = product.count {
+                ZStack {
+                    Capsule()
+                        .frame(maxWidth: .infinity)
+                        .frame(height: 65)
+                        .bold()
+                        .foregroundColor(.black)
+                        HStack {
+                            Image(systemName: "minus")
+                                .foregroundColor(.white)
+                                .font(.system(size: 20))
+                                .bold()
+                                .onTapGesture {
+                                    viewModel.minusProdutInCart(product: product)
+                                }
+                            
+                            Spacer()
+                            
+                            Text("\(count)")
+                                .bold()
+                                .foregroundColor(.white)
+                                .font(.system(size: 20))
+                            
+                            Spacer()
+                            
+                            Image(systemName: "plus")
+                                .foregroundColor(.white)
+                                .font(.system(size: 20))
+                                .bold()
+                                .onTapGesture {
+                                    viewModel.addProdutInCart(product: product)
+                                }
+                        }
+                        .padding(.horizontal, 40)
+                        Text("В корзине")
+                            .foregroundColor(.gray)
+                            .font(.system(size: 12))
+                            .offset(y: 20)
+                }
+            } else {
+                Button {
+                    viewModel.addProdutInCart(product: product)
+                } label: {
+                    Text("Добавить в корзину")
+                        .frame(maxWidth: .infinity)
+                        .frame(height: 65)
+                        .bold()
+                        .foregroundColor(.white)
+                        .background(Color.black)
+                        .clipShape(Capsule())
+                }
+            }
+        }
+    }
+}
+
 
 #Preview {
     DetailView(product: .dum)
+        .environmentObject(ViewModel())
 }

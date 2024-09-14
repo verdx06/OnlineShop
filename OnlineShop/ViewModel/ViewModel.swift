@@ -18,4 +18,19 @@ final class ViewModel: ObservableObject {
             database.document(id).updateData(["favorite" : !product.favorite])
         }
     }
+    
+    func addProdutInCart(product:Product) {
+        if let id = product.id {
+            database.document(id).updateData(["count" : (product.count ?? 0) + 1])
+        }
+    }
+    
+    func minusProdutInCart(product:Product) {
+        if let id = product.id {
+            database.document(id).updateData(["count" : (product.count ?? 0) - 1])
+        }
+    }
+    
+    
+    
 }
