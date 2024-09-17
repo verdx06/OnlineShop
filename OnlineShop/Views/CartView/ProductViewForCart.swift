@@ -13,6 +13,15 @@ struct ProductViewForCart: View {
     let product: Product
     
     var body: some View {
+        
+        ZStack {
+            
+            Rectangle()
+                .frame(maxWidth: .infinity)
+                .frame(height: 150)
+                .foregroundColor(.white)
+                .shadow(color: .black.opacity(0.1), radius: 7, x: 5, y: 6)
+            
             
             HStack {
                 
@@ -25,46 +34,55 @@ struct ProductViewForCart: View {
                 }
                 
                 VStack(alignment: .leading, spacing: 20) {
-                    Text(product.name)
-                        .font(.system(size: 15))
-                        .bold()
-                    
-                    Image(systemName: "xmark.circle.fill")
                     
                     HStack {
-                        
-                        Text("\(product.price)$")
+                        Text(product.name)
                             .font(.system(size: 15))
                             .bold()
                         
                         Spacer()
                         
-                        Button {
-                            viewModel.minusProdutInCart(product: product)
-                        } label: {
-                            Image(systemName: "minus.rectangle.fill")
-                                .font(.system(size: 20))
+                        Image(systemName: "xmark.circle.fill")
+                            .font(.system(size: 20))
+                            .onTapGesture {
+                                viewModel.deleteProdutInCart(product: product)
+                            }
+                    }
+                    
+                    HStack {
+                        
+                        if let count = product.count {
+                            let sum = count * product.price
+                            Text("\(sum)$")
+                                .font(.system(size: 15))
+                                .bold()
                         }
+                        
+                        Spacer()
+                        
+                        Image(systemName: "minus.rectangle.fill")
+                            .font(.system(size: 20))
+                            .onTapGesture {
+                                viewModel.minusProdutInCart(product: product)
+                            }
                         
                         if let count = product.count {
                             Text("\(count)")
                                 .font(.system(size: 20))
                         }
                         
-                        Button {
-                            viewModel.addProdutInCart(product: product)
-                        } label: {
-                            Image(systemName: "plus.rectangle.fill")
-                                .font(.system(size: 20))
-                        }
+                        Image(systemName: "plus.rectangle.fill")
+                            .font(.system(size: 20))
+                            .onTapGesture {
+                                viewModel.addProdutInCart(product: product)
+                            }
                         
                     }
-                }
+                } 
                 
                 Spacer()
-            
-            .background()
-        }
+            }
+        } .padding(10)
     }
 }
 
