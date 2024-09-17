@@ -17,11 +17,18 @@ struct FavoriteProducts: View {
             ScrollView {
                 if items.isEmpty {
                     NofavoriteProduct()
+                        .transition(AnyTransition.opacity.animation(.easeInOut))
                 } else {
                     LazyVGrid(columns: Array(repeating: GridItem(), count: 1), content: {
                         ForEach(items) { item in
-                            ProductCard(product: item)
-                                .padding(.bottom, 70)
+                            NavigationLink  {
+                                DetailView(product: item)
+                            } label: {
+                                ProductCard(product: item)
+                                    .foregroundColor(.black)
+                                    .padding(.horizontal)
+                                    .padding(.bottom, 70)
+                            }
                         }
                     })
                 }
