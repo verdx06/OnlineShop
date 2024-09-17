@@ -10,20 +10,32 @@ import FirebaseFirestore
 
 struct CartView: View {
     
+    @EnvironmentObject var viewModel: ViewModel
     @FirestoreQuery(collectionPath: "shop") private var items: [Product]
     
     var body: some View {
-        ScrollView {
-            VStack {
+        VStack {
+            ScrollView {
                 if checkCount() {
                     ForEach(items.filter{ $0.count ?? 0 >= 1 }) { item in
                         ProductViewForCart(product: item)
                     }
                 }else {
-                    NofavoriteProduct()
+                    NoProductViewForCart()
+                        .transition(AnyTransition.opacity.animation(.easeInOut))
                 }
             }
+            
+            Text("Total: \(viewModel.titleCount)$")
+                .bold()
+                .padding(.bottom)
+            
+            CustomBlackButton(title: "Купить") {
+                //
+            }
+            .padding(.horizontal, 30)
         }
+        
     }
     
     func checkCount() -> Bool {
@@ -38,6 +50,7 @@ struct CartView: View {
 
 #Preview {
     CartView()
+        .environmentObject(ViewModel())
 }
 
 
