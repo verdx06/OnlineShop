@@ -60,9 +60,9 @@ struct DetailView: View {
     }
     
     func checkCount() -> Bool {
-        if product.id != nil {
+        if let id = product.id {
             for item in items {
-                if item.count ?? 0 >= 1 {
+                if item.count ?? 0 >= 1, item.id == id {
                     return true
                 }
             }
@@ -118,16 +118,8 @@ extension DetailView {
                             .offset(y: 20)
                 }
             } else {
-                Button {
+                CustomBlackButton(title: "Добавить продукт") {
                     viewModel.addProdutInCart(product: product)
-                } label: {
-                    Text("Добавить в корзину")
-                        .frame(maxWidth: .infinity)
-                        .frame(height: 65)
-                        .bold()
-                        .foregroundColor(.white)
-                        .background(Color.black)
-                        .clipShape(Capsule())
                 }
             }
         }
