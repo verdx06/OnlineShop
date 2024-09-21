@@ -1,10 +1,3 @@
-//
-//  ContentView.swift
-//  OnlineShop
-//
-//  Created by Виталий Багаутдинов on 10.09.2024.
-//
-
 import SwiftUI
 import FirebaseFirestore
 
@@ -23,17 +16,18 @@ struct ContentView: View {
                             DetailView(product: item)
                         } label: {
                             ProductCard(product: item)
-                                .padding(.bottom, 70)
+                                .padding(.bottom, 90)
                                 .foregroundColor(.black)
                             Divider()
                         }
                     }
                 }
-            }.padding(.horizontal, 10)
+            }
+            .navigationBarItems(leading: LeadingButton, trailing: TrailingButton)
+            .padding(.horizontal, 10)
                 .navigationBarBackButtonHidden(true)
             // MARK: - Navigation Bar
             .navigationTitle("Товары")
-            .navigationBarItems(leading: LeadingButton, trailing: TrailingButton)
         }
     }
 }

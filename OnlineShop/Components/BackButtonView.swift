@@ -1,10 +1,3 @@
-//
-//  BackButtonView.swift
-//  OnlineShop
-//
-//  Created by Виталий Багаутдинов on 13.09.2024.
-//
-
 import SwiftUI
 
 struct BackButtonView: View {

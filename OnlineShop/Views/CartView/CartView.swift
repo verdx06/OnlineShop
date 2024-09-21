@@ -1,10 +1,3 @@
-//
-//  CartView.swift
-//  OnlineShop
-//
-//  Created by Виталий Багаутдинов on 13.09.2024.
-//
-
 import SwiftUI
 import FirebaseFirestore
 
@@ -34,7 +27,8 @@ struct CartView: View {
                 //
             }
             .padding(.horizontal, 30)
-        }
+        }.navigationTitle("Корзина")
+        
         
     }
     

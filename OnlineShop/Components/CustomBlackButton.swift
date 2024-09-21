@@ -1,10 +1,3 @@
-//
-//  CustomBlackButton.swift
-//  OnlineShop
-//
-//  Created by Виталий Багаутдинов on 17.09.2024.
-//
-
 import SwiftUI
 
 struct CustomBlackButton: View {
