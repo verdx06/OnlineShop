@@ -8,9 +8,41 @@
 import SwiftUI
 
 struct TabView: View {
+    
+    @State private var selection: String = "home"
+    
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        HStack {
+            TabViewHome
+            TabViewFavorite
+            TabViewSetting
+        }
     }
+}
+
+extension TabView {
+    
+    var TabViewHome: some View {
+        VStack {
+            Image(systemName: "house")
+            Text("Home")
+        }
+    }
+    
+    var TabViewFavorite: some View {
+        VStack {
+            Image(systemName: "heart")
+            Text("heart")
+        }
+    }
+    
+    var TabViewSetting: some View {
+        VStack {
+            Image(systemName: "trash")
+            Text("trash")
+        }
+    }
+    
 }
 
 #Preview {
