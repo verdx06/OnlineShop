@@ -6,10 +6,18 @@
 //
 
 import SwiftUI
+import FirebaseFirestore
 
 struct BuyView: View {
+    
+    @FirestoreQuery(collectionPath: "map") private var items: [Map]
+    
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        VStack {
+            ForEach(items) { item in
+                MapView(map: item)
+            }
+        }
     }
 }
 
