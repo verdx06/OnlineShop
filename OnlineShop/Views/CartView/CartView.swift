@@ -23,10 +23,18 @@ struct CartView: View {
                 .bold()
                 .padding(.bottom)
             
-            CustomBlackButton(title: "Купить") {
-                //
-            }
-            .padding(.horizontal, 30)
+            NavigationLink(destination: {
+                BuyView()
+            }, label: {
+                Text("Купить")
+                    .frame(maxWidth: .infinity)
+                    .frame(height: 65)
+                    .bold()
+                    .foregroundColor(.white)
+                    .background(Color.black)
+                    .clipShape(Capsule())
+            })
+                .padding(.horizontal, 30)
         }.navigationTitle("Корзина")
         
         
