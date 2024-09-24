@@ -28,11 +28,12 @@ struct NoProductViewForCart: View {
                         .foregroundColor(.black)
                         .font(.headline)
                         .cornerRadius(10)
+                        .padding(.horizontal, 5)
                         .overlay {
                             RoundedRectangle(cornerRadius: 10)
                                 .stroke(Color.black, lineWidth: 2)
                         }
-                        .fixedSize(horizontal: true, vertical: false)
+                    
                 }
                 .padding(.horizontal, 30)
                 
