@@ -4,14 +4,16 @@ struct CustomBlackButton: View {
     
     let title: String
     let action: () -> ()
+    let width: CGFloat
+    let height: CGFloat
     
     var body: some View {
         Button {
             action()
         } label: {
             Text(title)
-                .frame(maxWidth: .infinity)
-                .frame(height: 65)
+                .frame(maxWidth: width)
+                .frame(height: height)
                 .bold()
                 .foregroundColor(.white)
                 .background(Color.black)
