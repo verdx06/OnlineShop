@@ -1,41 +1,34 @@
 import SwiftUI
+import FirebaseFirestore
 
 struct MapView: View {
     
     let map: Map
+    @EnvironmentObject var viewModel: ViewModel
+    @FirestoreQuery(collectionPath: "map") private var items: [Map]
     
     var body: some View {
         ZStack {
-            RoundedRectangle(cornerRadius: 10)
-                .frame(maxWidth: .infinity)
-                .padding(.horizontal, 5)
-                .frame(height: 250)
-                .foregroundColor(.gray.opacity(0.5))
-            
-            RoundedRectangle(cornerRadius: 10)
-                .frame(maxWidth: .infinity)
-                .padding(.horizontal, 10)
-                .frame(height: 50)
-                .offset(y: -65)
-                .foregroundColor(.white)
-            
-            VStack {
-                
-                HStack {
+            Button  {
+                isToggle()
+            } label: {
+                if map.asChoise {
+                    ZStack(alignment: .topLeading) {
+                        maps
+                        Image(systemName: "circle.fill")
+                    }
                     
-                    Text(formatPhoneNumber(number: "\(map.numbers)"))
-                        .padding(.horizontal)
-                        .font(.system(size: 25))
-                        .offset(x: -45 ,y: -43)
                 }
-                
-                Text(map.name)
-                
-                Text("\(map.cod)")
+                else {
+                    ZStack(alignment: .topLeading) {
+                        maps
+                        Image(systemName: "circle")
+                    }
+                }
             }
         }
     }
-
+    
     func formatPhoneNumber(number: String) -> String {
         var formattedNumber = ""
         
@@ -44,14 +37,52 @@ struct MapView: View {
             let start = number.index(number.startIndex, offsetBy: i)
             let end = number.index(start, offsetBy: chunkSize, limitedBy: number.endIndex) ?? number.endIndex
             let chunk = String(number[start..<end])
-            formattedNumber += chunk + " "
+            formattedNumber += chunk + " ****"
+            return formattedNumber.trimmingCharacters(in: .whitespaces)
         }
         
-        return formattedNumber.trimmingCharacters(in: .whitespaces)
+        return "Error"
+    }
+    
+    func isToggle() {
+        for item in items {
+            viewModel.setMapChoice(map: item, choice: false)
+        }
+        viewModel.setMapChoice(map: map, choice: true)
     }
 }
 
 
+extension MapView {
+    var maps: some View {
+        ZStack(alignment: .topLeading)  {
+            VStack(alignment: .leading) {
+                Text(map.name)
+                    .foregroundColor(.white)
+                    .font(.system(size: 19))
+                    .fontWeight(.semibold)
+                
+                Spacer()
+                
+                HStack{
+                    Text(formatPhoneNumber(number: "\(map.numbers)"))
+                        .foregroundColor(.white)
+                    Spacer()
+                }
+            }
+            .padding()
+            
+            
+        }
+        .frame(width: 242, height: 153)
+        .background(LinearGradient(gradient: Gradient(colors: [Color.gray.opacity(0.5), Color.black.opacity(0.9)]), startPoint: .topLeading, endPoint: .bottomTrailing))
+        .cornerRadius(15)
+        .shadow(color: .accentColor.opacity(0.2), radius: 5, x: 4, y: 4)
+        .padding()
+    }
+}
+
 #Preview {
     MapView(map: .fakemap)
+        .environmentObject(ViewModel())
 }
