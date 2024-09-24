@@ -4,6 +4,7 @@ import FirebaseFirestore
 final class ViewModel: ObservableObject {
     // MARK: - Properties
     private let database = Firestore.firestore().collection("shop")
+    private let databaseMap = Firestore.firestore().collection("map")
     @Published var cartItem: [Product] = []
     
     var titleCount: Int {
@@ -44,6 +45,16 @@ final class ViewModel: ObservableObject {
     
     func deleteProdutInCart(product:Product) {
         updateDatabase(product: product, data: ["count" : 0])
+    }
+    
+    func setMapChoice(map: Map, choice: Bool) {
+        updateDatabaseMap(map: map, data: ["asChoise" : choice])
+    }
+    
+    private func updateDatabaseMap(map: Map, data: [String : Any]) {
+        if let id = map.id {
+            databaseMap.document(id).updateData(data)
+        }
     }
     
     private func updateDatabase(product: Product, data: [String : Any]) {
