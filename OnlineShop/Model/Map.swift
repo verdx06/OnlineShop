@@ -14,6 +14,7 @@ struct Map: Identifiable, Codable {
     var cod: Int
     var data: String
     var numbers: Int
+    var asChoise: Bool
 }
 
 
@@ -24,7 +25,8 @@ extension Map {
             name: "Vital",
             cod: 234,
             data: "09/23",
-            numbers: 2220333044405550
+            numbers: 2220333044405550,
+            asChoise: true
         )
     }
     
