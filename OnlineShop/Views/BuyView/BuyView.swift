@@ -25,10 +25,18 @@ struct BuyView: View {
                     }
                 }
             }
-            CustomBlackButton(title: "Оформить покупку") {
-                //
-            }
-            .padding()
+            NavigationLink (destination: {
+                LoadingView()
+            }, label: {
+                Text("Оформить покупку")
+                    .frame(maxWidth: .infinity)
+                    .frame(height: 65)
+                    .bold()
+                    .foregroundColor(.white)
+                    .background(Color.black)
+                    .clipShape(Capsule())
+            })
+            .padding(.horizontal)
         }.navigationTitle("Выберите карту")
     }
 }
