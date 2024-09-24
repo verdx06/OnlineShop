@@ -14,13 +14,28 @@ struct BuyView: View {
     
     var body: some View {
         VStack {
-            ForEach(items) { item in
-                MapView(map: item)
+            ScrollView {
+                ForEach(items) { item in
+                    VStack(alignment: .leading){
+                        HStack {
+                            MapView(map: item)
+                            Spacer()
+                        }
+                        .padding(.leading)
+                    }
+                }
             }
-        }
+            CustomBlackButton(title: "Оформить покупку") {
+                //
+            }
+            .padding()
+        }.navigationTitle("Выберите карту")
     }
 }
 
 #Preview {
-    BuyView()
+    NavigationView {		
+        BuyView()
+            .environmentObject(ViewModel())
+    }
 }
