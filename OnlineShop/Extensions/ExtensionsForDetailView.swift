@@ -46,9 +46,9 @@ extension DetailView {
                             .offset(y: 20)
                 }
             } else {
-                CustomBlackButton(title: "Добавить продукт") {
+                CustomBlackButton(title: "Добавить продукт", action: {
                     viewModel.addProdutInCart(product: product)
-                }
+                }, width: .infinity, height: 65)
                 .padding()
             }
         }
